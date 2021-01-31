@@ -1,0 +1,18 @@
+{
+  "name": "tree-sitter-sveltealt",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run gen && npm run test",
+    "gen": "tree-sitter generate",
+    "test": "tree-sitter test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nan": "^2.14.2",
+    "tree-sitter-cli": "^0.18.0"
+  }
+}

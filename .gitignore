@@ -1,0 +1,11 @@
+# node_files
+node_modules
+
+# lock files
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# other C/C++
+compile_flags.txt
+

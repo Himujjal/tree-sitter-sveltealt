@@ -1,0 +1,5 @@
+{
+  "watch": ["src/scanner.cc", "test/corpus/*.txt", "grammar.js"],
+  "ext": "js,cc,txt",
+  "exec": "npm run gen && tree-sitter test"
+}

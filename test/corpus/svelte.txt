@@ -1,0 +1,190 @@
+=============
+expressions
+=============
+
+@div {
+    hello {let a = 'hello'}
+    yo {} {``}
+}
+
+@each i, n as a {
+    hello
+}
+
+---
+
+(document
+    (element (start_tag (tag_name))
+        (text) (expression (raw_text))
+        (text) (expression)
+        (expression (raw_text))
+    )
+    (special_element
+        (start_tag (each_tag) (raw_text))
+        (text)
+    )
+)
+
+==============
+expressions-II
+==============
+@img src={src{}yo} alt="A man dances." {}
+@Button1 on:click={handleClick} {}
+@Info (...pkg()) {}
+
+---
+(document
+    (element
+        (start_tag
+            (tag_name)
+            (attribute
+                (attribute_name)
+                (attribute_value (expression (raw_text)))
+            )
+            (attribute (attribute_name)
+                (quoted_attribute_value (attribute_value))
+            )
+        )
+    )
+    (element
+        (start_tag
+            (tag_name)
+            (attribute
+                (attribute_name)
+                (attribute_value (expression (raw_text)))
+            ) 
+        )
+    )
+
+    (element (start_tag (tag_name) (expression_attribute (raw_text))) )
+
+)
+
+=====================
+special-tags
+======================
+@if x > 10 {
+    @button on:click={toggle} {
+        Log out  
+    }
+} @elseif 5 > x {
+    @p { {x} is }
+} @else {
+    @button on:click={toggle} {
+        Log in
+    }
+} 
+
+@each things as thing (thing.id) {
+    @Thing current={thing.color} {}
+}
+
+@await promise {
+    @p {...waiting}
+} @then number {
+    @p { number is {number} }
+} @catch error {
+    @p ~color=red {{error.message}}
+}
+
+------
+
+(document
+    (special_element
+        (start_tag (if_tag) (raw_text))
+        (element
+            (start_tag (tag_name)
+                (attribute (attribute_name)
+                    (attribute_value (expression (raw_text)))
+                )
+            )
+            (text) (text)
+        )
+    )
+    (special_element
+        (start_tag (elseif_tag) (raw_text))
+        (element
+            (start_tag (tag_name))
+            (expression (raw_text)) (text)
+        )
+    )
+    (special_element
+        (start_tag (else_tag) (raw_text))
+        (element
+            (start_tag (tag_name)
+                (attribute (attribute_name)
+                    (attribute_value (expression (raw_text)))
+                )
+            )
+            (text) (text)
+        )
+    )
+    (special_element
+        (start_tag (each_tag) (raw_text))
+        (element (start_tag (tag_name)
+            (attribute (attribute_name)
+                (attribute_value (expression (raw_text)))
+            )
+        ))
+    )
+
+    (special_element
+        (start_tag (await_tag) (raw_text))
+        (element (start_tag (tag_name)) (text))
+    )
+    (special_element
+        (start_tag (then_tag) (raw_text))
+        (element (start_tag (tag_name))
+            (text) (text) (expression (raw_text))
+        )
+    )
+    (special_element
+        (start_tag (catch_tag) (raw_text))
+        (element
+            (start_tag (tag_name)
+                (style_attribute
+                    (attribute_name) (attribute_value)
+                )
+            )
+            (expression (raw_text))
+        )
+    )
+)
+
+============
+attribute-I
+============
+@div on:mousemove={e => m = { x: e.clientX, y: e.clientY }} {
+	mouse-position is {m.x} x {m.y}
+}
+@Inner on:message {}
+
+@svelte:options immutable={true} (...obj) {}
+------
+
+(document
+    (element
+        (start_tag (tag_name)
+            (attribute (attribute_name)
+                (attribute_value (expression (raw_text)))
+            )
+        )
+        (text) (text)
+        (expression (raw_text)) (text)
+        (expression (raw_text))
+    )
+    (element
+        (start_tag (tag_name)
+            (attribute (attribute_name))
+        )
+    )
+    (element
+        (start_tag (tag_name)
+            (attribute (attribute_name)
+                (attribute_value (expression (raw_text)))
+            )
+            (expression_attribute (raw_text))
+        )
+    )
+)
+

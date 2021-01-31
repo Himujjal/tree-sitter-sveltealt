@@ -1,0 +1,97 @@
+=============================
+Script element & Style element
+=============================
+@script {
+    // hello
+    let a = 1;
+    class {
+        private a = "'`\"`{}";
+        private b = `hello ${
+            hello hello
+        } world`;
+    }
+}
+
+@style {
+    font-color: 1px;
+    hello-color: 1px;
+    @media-query {
+        div {
+            color: 1px;
+        }
+    }
+}
+----
+
+(document
+    (script_element
+        (start_tag (tag_name))
+        (raw_text)
+    )
+    (style_element
+        (start_tag (tag_name))
+        (raw_text)
+    )
+)
+
+===============================
+General elements
+===============================
+@div ~hello='1' ~font-color=blue #id1 .className {
+    hello world
+    @span { hello world }
+    @b { hello }
+    @a href=https://github.com { \u12344Fhello }
+}
+----
+(document
+    (element
+        (start_tag (tag_name)
+            (style_attribute
+                (attribute_name)
+                (quoted_attribute_value (attribute_value))
+            )
+            (style_attribute (attribute_name) (attribute_value))
+            (id_attribute (attribute_value))
+            (class_attribute (attribute_value))
+        )
+        (text) (text)
+
+        (element (start_tag (tag_name)) (text) (text))
+
+        (element (start_tag (tag_name)) (text))
+
+        (element
+            (start_tag (tag_name)
+               (attribute (attribute_name) (attribute_value))
+            )
+            (unicode) (text)
+        )
+    )
+)
+
+========================
+Random nested elements
+========================
+
+// hello
+/*
+* hello
+*/
+@div /* hello */ hello=hello { hello }
+@p {}
+
+----
+
+(document
+    (comment)
+    (comment)
+    (element
+        (start_tag
+            (tag_name) (comment) (attribute (attribute_name) (attribute_value))
+        )
+        (text) 
+    )
+    (element (start_tag (tag_name)))
+)
+
