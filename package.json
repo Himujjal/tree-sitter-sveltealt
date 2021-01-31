@@ -1,7 +1,7 @@
 {
   "name": "tree-sitter-sveltealt",
   "version": "0.0.1",
-  "description": "",
+  "description": "tree-sitter grammar for sveltealt - an alternative syntax for svelte/html",
   "main": "index.js",
   "scripts": {
     "start": "npm run gen && npm run test",
@@ -12,7 +12,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "nan": "^2.14.2",
+    "nan": "^2.14.2"
+  },
+  "devDependencies": {
     "tree-sitter-cli": "^0.18.0"
   }
 }
